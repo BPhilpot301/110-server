@@ -1,0 +1,13 @@
+1 Create venv
+WIN py/python -m venv venv
+
+
+2 Activate the virtual environment
+WIN venv\Scripts\activate 
+
+3 Install Flask
+WIN pip install Flask
+
+4 Run App
+WIN py/python server.py
+
