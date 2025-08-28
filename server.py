@@ -139,6 +139,28 @@ def save_product():
     products_list.append(data)
     return "New product added", 201
 
+# Get products by category
+#http://127.0.0.1:5000/products/category/Electronics
+@app.get("/products/category/<category>")
+def get_products_by_category(category):
+    result = [p for p in products_list if p["category"].lower() == category.lower()]
+    return result if result else ("No products found in this category", 404)
+
+# Get products cheaper than a given price
+# http://127.0.0.1:5000/products/price/899.99
+@app.get("/products/price/<float:max_price>")
+def get_products_by_price(max_price):
+    result = [p for p in products_list if p["price"] < max_price]
+    return result if result else ("No products found below this price", 404)
+
+# Search products by (partial) title
+# http://127.0.0.1:5000/products/search/Note
+@app.get("/products/search/<title>")
+def search_products_by_title(title):
+    t = title.lower()
+    result = [p for p in products_list if t in p["title"].lower()]
+    return result if result else ("No product found with that title", 404)
+
 
 app.run(debug=True)
 #app.run(debug=True, port=5500)
